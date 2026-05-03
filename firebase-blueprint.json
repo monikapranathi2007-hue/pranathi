@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user registration and authentication data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "lastLocation": {
+          "type": "object",
+          "properties": {
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" },
+            "address": { "type": "string" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Query": {
+      "title": "Problem Query",
+      "description": "Records of problems described and routed by users",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "input": { "type": "string" },
+        "mode": { "type": "string", "enum": ["text", "voice"] },
+        "result": {
+          "type": "object",
+          "properties": {
+            "category": { "type": "string" },
+            "department": { "type": "string" },
+            "urgency": { "type": "string" },
+            "analysis": { "type": "string" }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" },
+            "city": { "type": "string" }
+          }
+        },
+        "feedback": {
+          "type": "object",
+          "properties": {
+            "accuracy": { "type": "number" },
+            "helpfulness": { "type": "number" },
+            "updatedAt": { "type": "string", "format": "date-time" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "input", "createdAt"]
+    },
+    "Notification": {
+      "title": "In-app Notification",
+      "description": "System alerts and updates for users",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string", "enum": ["info", "success", "warning", "error"] },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "message", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "queries/{queryId}": {
+      "schema": "Query",
+      "description": "History of problem routing queries"
+    },
+    "notifications/{notifId}": {
+      "schema": "Notification",
+      "description": "User notification alerts"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "RouteAssist",
+  "description": "AI-powered problem routing system that identifies the correct service or authority for any user issue and provides actionable next steps.",
+  "requestFramePermissions": ["geolocation", "microphone"],
+  "majorCapabilities": ["firebase", "ai"]
+}
